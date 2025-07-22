@@ -46,3 +46,71 @@ button {
 input {
   font-family: inherit;
 }
+body.dark {
+  background-color: #121212;
+  color: #ffffff;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark .app-header {
+  background-color: #1f1f1f;
+  color: #ffffff;
+  border-bottom: 1px solid #333;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+body.dark .form-section,
+body.dark .contacts-section {
+  background: #1e1e1e;
+  color: #ffffff;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+body.dark input,
+body.dark .search-input {
+  background-color: #2c2c2c;
+  color: #ffffff;
+  border: 1px solid #444;
+  padding: 0.5rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+body.dark input::placeholder {
+  color: #cccccc;
+}
+
+body.dark .contact-item {
+  background-color: #1a1a1a;
+  border-bottom: 1px solid #333;
+  padding: 0.8rem;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+}
+
+body.dark .contact-actions button,
+body.dark .form-actions button,
+body.dark .theme-toggle {
+  background-color: #333;
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+body.dark .contact-actions button:hover,
+body.dark .form-actions button:hover,
+body.dark .theme-toggle:hover {
+  background-color: #555;
+}
+
+body.dark .empty-message {
+  color: #ffffff;
+  font-style: italic;
+}
+
