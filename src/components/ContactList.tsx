@@ -13,22 +13,24 @@ function ContactList({ contacts, onDelete, onEdit }: ContactListProps) {
         <p className="empty-message">No hay contactos agregados</p>
       ) : (
         <ul>
-          {contacts.map(contact => (
-            <li key={contact.id} className="contact-item">
-              <div>
-                <strong>{contact.name}</strong>
-                <span> - {contact.phone}</span>
-              </div>
-              <div className="contact-actions">
-                <button onClick={() => onEdit(contact)}>Editar</button>
-                <button onClick={() => onDelete(contact.id)}>Eliminar</button>
-              </div>
-            </li>
-          ))}
+ {contacts.map(contact => (
+  <li key={contact.id} className="contact-item">
+    <div>
+      <strong>{contact.name} {contact.lastName || ''}</strong><br />
+      📞 {contact.phone}<br />
+      {contact.email && <>📧 {contact.email}<br /></>}
+    </div>
+    <div className="contact-actions">
+      <button onClick={() => onEdit(contact)}>Editar</button>
+      <button onClick={() => onDelete(contact.id)}>Eliminar</button>
+    </div>
+  </li>
+))}
         </ul>
       )}
     </div>
   )
 }
+
 
 export default ContactList

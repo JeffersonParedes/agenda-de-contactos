@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Contact } from '../types/Contact.tsx'
 
 interface ContactFormProps {
@@ -10,19 +10,50 @@ interface ContactFormProps {
 
 function ContactForm({ onSubmit, editingContact, onUpdate, onCancelEdit }: ContactFormProps) {
   const [name, setName] = useState('')
+  const [lastName, setLastName] = useState('')
   const [phone, setPhone] = useState('')
+  const [email, setEmail] = useState('')
+
+  useEffect(() => {
+    if (editingContact) {
+      setName(editingContact.name)
+      setLastName(editingContact.lastName || '')
+      setPhone(editingContact.phone)
+      setEmail(editingContact.email || '')
+    } else {
+      setName('')
+      setLastName('')
+      setPhone('')
+      setEmail('')
+    }
+  }, [editingContact])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     if (!name.trim() || !phone.trim()) {
-      alert('Por favor complete todos los campos')
+      alert('Por favor complete al menos Nombre y Teléfono')
       return
     }
 
-    onSubmit({ name: name.trim(), phone: phone.trim() })
+    const contactData = {
+      name: name.trim(),
+      lastName: lastName.trim(),
+      phone: phone.trim(),
+      email: email.trim()
+    }
+
+    if (editingContact) {
+      onUpdate({ ...editingContact, ...contactData })
+    } else {
+      onSubmit(contactData)
+    }
+
+   
     setName('')
+    setLastName('')
     setPhone('')
+    setEmail('')
   }
 
   return (
@@ -37,7 +68,18 @@ function ContactForm({ onSubmit, editingContact, onUpdate, onCancelEdit }: Conta
           placeholder="Ingrese el nombre"
         />
       </div>
-      
+
+      <div className="form-group">
+        <label htmlFor="lastName">Apellido:</label>
+        <input
+          type="text"
+          id="lastName"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+          placeholder="Ingrese el apellido"
+        />
+      </div>
+
       <div className="form-group">
         <label htmlFor="phone">Teléfono:</label>
         <input
@@ -48,11 +90,20 @@ function ContactForm({ onSubmit, editingContact, onUpdate, onCancelEdit }: Conta
           placeholder="Ingrese el teléfono"
         />
       </div>
-      
+
+      <div className="form-group">
+        <label htmlFor="email">Correo electrónico:</label>
+        <input
+          type="email"
+          id="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Ingrese el correo"
+        />
+      </div>
+
       <div className="form-actions">
-        <button type="submit">
-          Agregar
-        </button>
+        <button type="submit">{editingContact ? 'Actualizar' : 'Agregar'}</button>
         {editingContact && (
           <button type="button" onClick={onCancelEdit}>
             Cancelar
